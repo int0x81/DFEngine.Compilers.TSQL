@@ -20,5 +20,12 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
     versioningScheme: 'byPrereleaseNumber'
     majorVersion: '0'
-    minorVersion: '2'
+    minorVersion: '6'
     patchVersion: '0'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget.org'
