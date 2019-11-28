@@ -1,9 +1,9 @@
-﻿using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Helpers;
+﻿using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Helpers;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.ResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
     
     public class MergeStatementResolverTest

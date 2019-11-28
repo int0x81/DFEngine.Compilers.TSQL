@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Hansalytics.Compilers.TSQL.LiveTest
+namespace DFEngine.Compilers.TSQL.LiveTest
 {
     /// <summary>
     /// Simple console application for testting purposes that compiles a local script

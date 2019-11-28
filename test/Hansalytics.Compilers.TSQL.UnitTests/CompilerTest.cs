@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests
+namespace DFEngine.Compilers.TSQL.UnitTests
 {
     public class CompilerTest
     {

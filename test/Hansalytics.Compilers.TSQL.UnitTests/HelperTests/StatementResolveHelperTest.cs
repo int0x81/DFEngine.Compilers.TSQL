@@ -1,13 +1,13 @@
-﻿using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Exceptions;
-using Hansalytics.Compilers.TSQL.Helpers;
+﻿using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Exceptions;
+using DFEngine.Compilers.TSQL.Helpers;
 using System;
 using System.Collections.Generic;
 using TSQL;
 using TSQL.Tokens;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.HelperTests
+namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
 {
     
     public class StatementResolveHelperTest

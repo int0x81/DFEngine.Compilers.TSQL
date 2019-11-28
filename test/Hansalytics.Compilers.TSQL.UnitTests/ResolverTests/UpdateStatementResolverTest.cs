@@ -1,11 +1,11 @@
-﻿using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Resolvers;
+﻿using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Resolvers;
 using System;
 using TSQL;
 using TSQL.Tokens;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.StatementResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 {
     public class UpdateStatementResolverTest
     {

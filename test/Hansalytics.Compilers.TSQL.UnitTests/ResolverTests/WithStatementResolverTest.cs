@@ -1,5 +1,5 @@
-﻿using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Resolvers;
+﻿using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +7,7 @@ using TSQL;
 using TSQL.Tokens;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.ResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
     public class WithStatementResolverTest
     {

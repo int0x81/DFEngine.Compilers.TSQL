@@ -1,12 +1,12 @@
-﻿using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Helpers;
-using Hansalytics.Compilers.TSQL.Resolvers;
+﻿using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Helpers;
+using DFEngine.Compilers.TSQL.Resolvers;
 using System;
 using TSQL.Tokens;
 using Xunit;
 using TSQL;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.StatementResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 {
     public class SelectStatementResolverTest
     {

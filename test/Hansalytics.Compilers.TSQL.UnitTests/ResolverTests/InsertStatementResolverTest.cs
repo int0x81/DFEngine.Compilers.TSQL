@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using TSQL.Tokens;
 using System;
-using Hansalytics.Compilers.TSQL.Models;
-using Hansalytics.Compilers.TSQL.Resolvers;
+using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Resolvers;
 using TSQL;
 using Xunit;
 
-namespace Hansalytics.Compilers.TSQL.UnitTests.ResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
     
     public class InsertStatementResolverTest
