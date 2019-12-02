@@ -73,6 +73,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
         }
 
         [Fact]
+
         public void ShouldResolveSelectStatementWithMultipleTables()
         {
             //Arrange

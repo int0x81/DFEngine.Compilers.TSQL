@@ -19,7 +19,8 @@ namespace DFEngine.Compilers.TSQL.LiveTest
             foreach(string file in files)
             {
                 string tsqlContent = File.ReadAllText(file);
-                compiler.Compile(tsqlContent, "std_server", "std_db", file);
+                var options = new CompilerOptions() { ConsiderQueries = true };
+                compiler.Compile(tsqlContent, "std_server", "std_db", file, options);
                 Console.WriteLine(file + " Done");
             }
         }

@@ -49,7 +49,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             {
                 foreach (var dbo in objects)
                 {
-                    if (dbo.Type.Equals(DatabaseObjectType.REAL))
+                    if (!dbo.Type.Equals(DatabaseObjectType.REAL))
                         continue;
                     var sourceSynonymous = new Expression(ExpressionType.COLUMN)
                     {
