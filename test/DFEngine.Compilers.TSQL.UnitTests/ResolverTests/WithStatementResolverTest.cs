@@ -1,8 +1,6 @@
 ﻿using DFEngine.Compilers.TSQL.Models;
 using DFEngine.Compilers.TSQL.Resolvers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TSQL;
 using TSQL.Tokens;
 using Xunit;
@@ -11,25 +9,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
     public class WithStatementResolverTest
     {
-        //[Fact]
-        //public void ShouldResolveSingleWithStatementWithColumns()
-        //{
-        //    //Arrange
-        //    string rawTsql = "";
-
-        //    var resolver = new WithStatementResolver();
-        //    int fileIndex = 0;
-        //    CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
-        //    ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
-
-        //    //Act
-        //    resolver.Resolve(tokens, ref fileIndex, context);
-
-        //    //Assert
-        //    Assert.Equal(tokens.Length, fileIndex);
-        //    Assert.Single(context.CurrentDatabaseObjectContext);
-        //}
-
         [Fact]
         public void ShouldResolveWithStatementWithoutColumns()
         {
@@ -38,7 +17,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             var resolver = new WithStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

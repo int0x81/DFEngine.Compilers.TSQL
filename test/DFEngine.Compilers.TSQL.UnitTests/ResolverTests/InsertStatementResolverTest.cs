@@ -23,7 +23,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             IDataManipulationResolver resolver = new InsertStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -45,7 +45,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             IDataManipulationResolver resolver = new InsertStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

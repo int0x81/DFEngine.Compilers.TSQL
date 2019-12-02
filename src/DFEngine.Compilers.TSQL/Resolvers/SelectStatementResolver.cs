@@ -49,6 +49,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             {
                 foreach (var dbo in objects)
                 {
+                    if (dbo.Type.Equals(DatabaseObjectType.REAL))
+                        continue;
                     var sourceSynonymous = new Expression(ExpressionType.COLUMN)
                     {
                         Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)

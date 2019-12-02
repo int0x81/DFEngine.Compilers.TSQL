@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using DFEngine.Compilers.TSQL.Exceptions;
 using DFEngine.Compilers.TSQL.Helpers;
 using TSQL.Tokens;
 using DFEngine.Compilers.TSQL.Models.DataEntities;
@@ -24,7 +22,9 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             string query = StringHelper.RemoveQuotationMarks(tokens[fileIndex].Text);
 
-            var result = new Compiler().Compile(query, serverLink, serverLink + "_stdDB", context.Causer);
+            var compilerOptions = new CompilerOptions() { ConsiderQueries = context.ConsiderQueries };
+
+            var result = new Compiler().Compile(query, serverLink, serverLink + "_stdDB", context.Causer, compilerOptions);
 
             var openQuery = new DatabaseObject(DatabaseObjectType.SELECTION)
             {

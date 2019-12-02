@@ -20,7 +20,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IDataManipulationResolver resolver = new UpdateStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -28,7 +28,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(statement.Expressions);
             Assert.Equal(ExpressionType.COLUMN, statement.Expressions[0].Type);
             Assert.Equal("Stage_DB.dbo.someTable.tIsLastRecord", statement.Expressions[0].Name);
             Assert.Single(statement.Expressions[0].ChildExpressions);
@@ -46,7 +45,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IDataManipulationResolver resolver = new UpdateStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -54,7 +53,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Equal(2, statement.Expressions.Count);
             Assert.Equal(ExpressionType.COLUMN, statement.Expressions[0].Type);
             Assert.Equal("stdDatabase.dbo.TABLE_02.somevalue", statement.Expressions[0].Name);
             Assert.Equal("stdDatabase.unrelated.SOME_table.col_01", statement.Expressions[0].ChildExpressions[0].Name);
@@ -73,7 +71,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IDataManipulationResolver resolver = new UpdateStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

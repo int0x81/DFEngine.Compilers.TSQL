@@ -18,7 +18,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IExpressionResolver resolver = new TsqlFunctionResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -38,7 +38,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IExpressionResolver resolver = new TsqlFunctionResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -58,7 +58,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

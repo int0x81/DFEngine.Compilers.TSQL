@@ -17,7 +17,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT * FROM someTable";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -37,7 +37,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT someColumn_01 as someAlias FROM someTable";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -57,7 +57,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT someColumn_01, someColumn_02 * -2 AS someAlias FROM someTable";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -79,7 +79,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT someColumn FROM someTable, anotherTable";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -87,7 +87,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(expression.ChildExpressions);
+            Assert.Equal(3, expression.ChildExpressions.Count);
             Assert.Equal("unrelated.unrelated.unrelated.someColumn", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
@@ -99,7 +99,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT top 1 Keycol FROM DWH.dbo.someDim a";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -119,7 +119,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             string rawTsql = "SELECT a.[Key] FROM DWH.dbo.someDim a";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -144,7 +144,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
                 "                                )";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -164,7 +164,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
                              "from  someServer.someDb.dbo.[someTable]";
             IExpressionResolver resolver = new SelectStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

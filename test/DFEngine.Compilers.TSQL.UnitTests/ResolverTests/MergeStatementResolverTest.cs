@@ -52,8 +52,10 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
                              "                      t.NoImport = 1 " +
                              "       OUTPUT $ACTION ,Inserted.*,Deleted.*;";
 
+            var compilerOptions = new CompilerOptions() { ConsiderQueries = true };
+
             //Act
-            var result = new Compiler().Compile(rawTsql, "std_server", "std_database", "Xunit");
+            var result = new Compiler().Compile(rawTsql, "std_server", "std_database", "Xunit", compilerOptions);
 
             //Assert
             Assert.Empty(result.DataQueries);

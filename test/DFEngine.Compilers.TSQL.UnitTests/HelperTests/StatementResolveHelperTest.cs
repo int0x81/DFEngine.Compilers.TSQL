@@ -18,7 +18,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             //Arrange
             string whereStatement = "WHERE stamm6.deleted = 0 AND object14.deleted = 0 and feld10 is not null AND (ISNUMERIC(LEFT([feld34], 4)) = 1 " +
                                     "OR([feld34] LIKE '[0-9][0-9][0-9][0-9][A-Z][ ]'))";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(whereStatement).ToArray();
 
@@ -34,7 +34,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
         {
             //Arrange
             string whereStatement = "WHERE someTable.someColumn in ('string_01', 'string_02', 'string_03')";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(whereStatement).ToArray();
 
@@ -52,7 +52,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             string whereStatement = "where (([Budget Name] LIKE 'B%' AND YEAR([Date])>=2010) " +
                                     "OR     ([Budget Name] LIKE 'P%' AND [Budget Name] >= 'P2011' AND YEAR([Date])>=2011)) " +
                                     "AND     YEAR([Date])<=2010";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(whereStatement).ToArray();
 
@@ -70,7 +70,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             string fromStatement = "FROM ( SELECT HIST.someCol_01, HIST.someCol_02 FROM server_01.db_01.dbo.historyTable HIST) AS R " +
                 "INNER JOIN DWH.dbo.someDimension SOME_ALIAS_01 ON SOME_ALIAS_01.someCol_03 = some_FK COLLATE Latin1_General_CI_AS " +
                 "AND SOME_DATE BETWEEN SOME_ALIAS_01.ValidFrom AND SOME_ALIAS_01.ValidUntil";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(fromStatement).ToArray();
 
@@ -95,7 +95,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
                                    "       t2.rank DESC         " +
                                    ") t2o                       ";
 
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(fromStatement).ToArray();
 
@@ -115,7 +115,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
                                    "PIVOT( AVG(StandardCost)" +
                                    "FOR DaysToManufacture IN([0], [1], [2], [3], [4])" +
                                    "     ) AS PivotTable";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(joinStatement).ToArray();
 
@@ -131,7 +131,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
         {
             //Arrange
             string joinStatement = "FROM fn_helpcollations()";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(joinStatement).ToArray();
 
@@ -278,7 +278,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
         {
             //Arrange
             string expression = "*";
-            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant");
+            CompilerContext context = new CompilerContext("xUnit", "irrelevant", "irrelevant", true);
             int fileIndex = 0;
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(expression).ToArray();
 

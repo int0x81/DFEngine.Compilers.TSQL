@@ -21,7 +21,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             IExpressionResolver resolver = new CaseStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -44,7 +44,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             IExpressionResolver resolver = new CaseStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act
@@ -80,7 +80,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 
             IExpressionResolver resolver = new CaseStatementResolver();
             int fileIndex = 0;
-            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase");
+            CompilerContext context = new CompilerContext("xUnit", "stdserver", "stdDatabase", true);
             ReadOnlySpan<TSQLToken> tokens = TSQLTokenizer.ParseTokens(rawTsql).ToArray();
 
             //Act

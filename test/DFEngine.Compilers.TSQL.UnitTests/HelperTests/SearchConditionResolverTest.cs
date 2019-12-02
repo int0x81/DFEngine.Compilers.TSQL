@@ -19,7 +19,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -34,7 +34,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -49,7 +49,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -64,7 +64,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -79,7 +79,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -94,7 +94,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -109,7 +109,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -124,7 +124,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -139,7 +139,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -154,7 +154,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -169,7 +169,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
@@ -184,7 +184,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.HelperTests
             int fileIndex = 0;
 
             //Act
-            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant"));
+            SearchConditionResolver.Resolve(tokens, ref fileIndex, new CompilerContext("xUnit", "irrelevant", "irrelevant", true));
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);

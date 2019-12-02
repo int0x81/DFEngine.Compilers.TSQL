@@ -15,8 +15,10 @@ namespace DFEngine.Compilers.TSQL.UnitTests
                 "UPDATE targetTable t SET t.col01 = s.col1337 FROM testTable s";
             Compiler compiler = new Compiler();
 
+            var compilerOptions = new CompilerOptions() { ConsiderQueries = true };
+
             //Act
-            var result = compiler.Compile(rawTsql, "stdServer", "stdDb", "xUnit");
+            var result = compiler.Compile(rawTsql, "stdServer", "stdDb", "xUnit", compilerOptions);
 
             //Assert
             //Assert.Equal()
