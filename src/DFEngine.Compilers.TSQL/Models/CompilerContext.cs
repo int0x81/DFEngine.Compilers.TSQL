@@ -20,6 +20,11 @@ namespace DFEngine.Compilers.TSQL.Models
         internal string Causer { get; }
 
         /// <summary>
+        /// States if columns considered on compilation.
+        /// </summary>
+        internal bool ConsiderQueries { get; }
+
+        /// <summary>
         /// The server on which the sql is executed on
         /// </summary>
         internal string CurrentServerContext { get;}
@@ -56,11 +61,12 @@ namespace DFEngine.Compilers.TSQL.Models
         /// </summary>
         internal List<DatabaseObject> TableVariables { get; }
 
-        internal CompilerContext(string causer, string serverName, string databaseName)
+        internal CompilerContext(string causer, string serverName, string databaseName, bool considerQueries)
         {
             Causer = causer;
             CurrentServerContext = serverName;
             CurrentDbContext = databaseName;
+            ConsiderQueries = considerQueries;
             Variables = new List<Variable>();
         }
 

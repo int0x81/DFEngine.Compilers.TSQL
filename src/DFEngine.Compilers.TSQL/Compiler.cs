@@ -5,10 +5,8 @@ using TSQL.Tokens;
 using System.Runtime.CompilerServices;
 using DFEngine.Compilers.TSQL.Models;
 using DFEngine.Compilers.TSQL.Resolvers;
-using DFEngine.Compilers.TSQL.Helpers;
 
 [assembly: InternalsVisibleTo("DFEngine.Compilers.TSQL.UnitTests")]
-[assembly: InternalsVisibleTo("ZSM.Compilers.TSQL.UnitTests")]
 
 namespace DFEngine.Compilers.TSQL
 {
@@ -24,10 +22,11 @@ namespace DFEngine.Compilers.TSQL
         /// <param name="serverName">The name of the server on which the tsql is executed on</param>
         /// <param name="databaseName">The initial database this tsql is targeting</param>
         /// <param name="causer">The name of the entity that executes this sql e.g. the name of a script</param>
+        /// <param name="options">Options for how the compiler should perform the analysis</param>
         /// <returns>The compiler result containing all queries and manipulations</returns>
-        public CompilerResult Compile(string tsqlContent, string serverName, string databaseName, string causer)
+        public CompilerResult Compile(string tsqlContent, string serverName, string databaseName, string causer, CompilerOptions options)
         {
-            context = new CompilerContext(causer, serverName, databaseName);
+            context = new CompilerContext(causer, serverName, databaseName, options.ConsiderQueries);
             result = new CompilerResult();
             
             AnalyzeTSQLContentString(tsqlContent, context);
@@ -87,18 +86,22 @@ namespace DFEngine.Compilers.TSQL
                         SelectStatementResolver selectResolver = new SelectStatementResolver();
                         SelectStatement statement = selectResolver.ResolveTopLevel(tokens, ref fileIndex, context);
                         if (statement.TargetObject == null)
-                            context.DataQueries.Add(statement.Expression);
+                        { 
+                            if(context.ConsiderQueries)
+                              context.DataQueries.Add(statement.Expression);
+                        }   
                         else
                             context.AddSelectWithIntoClause(statement);
+
                         context.DropCommonTableExpressions();
-                        break;
+                        break;   
                     //case "drop":
                     //    gic.ResolveDropStatement(tokens, ref fileIndex, causer);
                     //    break;
                     case "create":
                         new CreateStatementResolver().Resolve(tokens, ref fileIndex, context);
                         break;
-                    //case "exec":
+                    //case "exec":*
                     //case "execute": throw new NotImplementedException("Execute statements are no supported yet");
                     default:
                         fileIndex++;

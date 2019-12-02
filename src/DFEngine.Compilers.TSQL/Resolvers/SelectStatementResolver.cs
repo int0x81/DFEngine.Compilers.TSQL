@@ -45,6 +45,18 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             var objects = StatementResolveHelper.ResolveFromStatement(tokens, ref fileIndex, context);
 
+            if (objects.Count > 1)
+            {
+                foreach (var dbo in objects)
+                {
+                    var sourceSynonymous = new Expression(ExpressionType.COLUMN)
+                    {
+                        Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                    };
+                    statement.Expression.ChildExpressions.Add(sourceSynonymous);
+                }
+            }
+
             AddObjectsToContext(objects, context);
 
             StatementResolveHelper.BeautifyColumns(statement.Expression, context);

@@ -91,7 +91,6 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             else
                 throw new InvalidSqlException("Amount of targets does not match the number of sources");
 
-
             if (fileIndex < tokens.Length && tokens[fileIndex].Text.Equals(";"))
                 fileIndex++;
 

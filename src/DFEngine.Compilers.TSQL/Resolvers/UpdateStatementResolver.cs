@@ -54,6 +54,25 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             AddObjectsToContext(objects, context);
 
+            if(objects.Count > 1)
+            {
+
+                var targetSynonymous = new Expression(ExpressionType.COLUMN)
+                {
+                    Name = StatementResolveHelper.EnhanceNotation(targetObject, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                };
+
+                foreach (var dbo in objects)
+                {
+                    var sourceSynonymous = new Expression(ExpressionType.COLUMN)
+                    {
+                        Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                    };
+                    targetSynonymous.ChildExpressions.Add(sourceSynonymous);
+                    manipulation.Expressions.Add(targetSynonymous);
+                }
+            }
+
             var beautified = new List<Expression>();
 
             foreach(var expr in manipulation.Expressions)
