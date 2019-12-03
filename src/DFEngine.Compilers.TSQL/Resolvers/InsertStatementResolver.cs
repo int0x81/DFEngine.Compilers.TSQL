@@ -72,7 +72,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                     manipulation.Expressions.Add(singleManipulation);
                 }
             }
-            else if(sources.Count == targets.Count)
+            else if(StatementResolveHelper.HaveEqualAmountOfRealExpression(sources, targets))
             {
                 for (int index = 0; index < targets.Count; index++)
                 {

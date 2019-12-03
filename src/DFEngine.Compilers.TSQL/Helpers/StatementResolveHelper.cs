@@ -558,6 +558,33 @@ namespace DFEngine.Compilers.TSQL.Helpers
         }
 
         /// <summary>
+        /// Checks if two group of expression have the equal amount
+        /// real expression. Mocked expression that are acting as synonymous
+        /// are not considered
+        /// </summary>
+        internal static bool HaveEqualAmountOfRealExpression(List<Expression> one, List<Expression> two)
+        {
+            int counter = 0;
+            List<Expression> biggerOne = one.Count > two.Count ? one : two;
+            List<Expression> smallerOne = one.Count > two.Count ? two : one;
+
+            foreach (var el in biggerOne)
+            {
+                if(!el.Type.Equals(ExpressionType.COLUMN))
+                {
+                    counter++;
+                    continue;
+                }
+                Helper.SplitColumnNotationIntoSingleParts(el.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+
+                if (!columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                    counter++;
+            }
+            
+            return counter == smallerOne.Count;
+        }
+
+        /// <summary>
         /// Resolves a dataset such as: ('Design Engineer', 'Tool Designer', 'Marketing Assistant')
         /// </summary>
         private static Expression ResolvesDataSet(ReadOnlySpan<TSQLToken> tokens, ref int fileIndex, CompilerContext context)

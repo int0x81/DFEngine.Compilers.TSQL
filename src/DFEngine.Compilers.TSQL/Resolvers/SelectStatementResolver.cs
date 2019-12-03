@@ -175,9 +175,9 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 }
                 else
                 {
-                    if (innerExpression.Type.Equals(ExpressionType.SCALAR_FUNCTION) || innerExpression.Type.Equals(ExpressionType.COMPLEX))
-                        query.ChildExpressions.AddRange(innerExpression.ChildExpressions);
-                    else if (innerExpression.Type.Equals(ExpressionType.COLUMN))
+                    //if (innerExpression.Type.Equals(ExpressionType.SCALAR_FUNCTION) || innerExpression.Type.Equals(ExpressionType.COMPLEX))
+                    //    query.ChildExpressions.AddRange(innerExpression.ChildExpressions);
+                    //else if (innerExpression.Type.Equals(ExpressionType.COLUMN))
                         query.ChildExpressions.Add(innerExpression);
                 }
                     

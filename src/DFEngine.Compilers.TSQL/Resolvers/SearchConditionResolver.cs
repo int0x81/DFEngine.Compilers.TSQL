@@ -76,7 +76,10 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                                 fileIndex++; //skip 'AND'
                                 StatementResolveHelper.ResolveExpression(tokens, ref fileIndex, context);
                                 isSecondPartofBetweenExpression = false;
-                            } 
+                            }
+
+                            if (fileIndex < tokens.Length && tokens[fileIndex].Text.Equals("escape", StringComparison.InvariantCultureIgnoreCase))
+                                fileIndex += 2; // skip 'escape [pattern]'
                         }
 
                         if (expectingSecondPart)
