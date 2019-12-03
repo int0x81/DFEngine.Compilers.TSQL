@@ -46,7 +46,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             SearchConditionResolver.Resolve(tokens, ref fileIndex, context);
 
-            //ResolveWhenExpression(tokens, ref fileIndex, context);
+            ResolveWhenExpression(tokens, ref fileIndex, context);
 
             while (!tokens[fileIndex].Text.ToLower().Equals(";"))
             {
@@ -185,7 +185,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             fileIndex++; //skip 'insert'
 
-            if (!tokens[fileIndex].Text.Equals("("))
+            if (tokens[fileIndex].Text.Equals("("))
             {
                 fileIndex++; //skip '('
 
