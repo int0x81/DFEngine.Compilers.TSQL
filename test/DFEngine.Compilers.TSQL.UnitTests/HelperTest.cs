@@ -18,7 +18,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests
             string notation = "testcolumn";
 
             //Act
-            Helper.SplitColumnNotationIntoSingleParts(notation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+            Helper.SplitColumnNotationIntoSingleParts(notation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
             //Assert
             Assert.Equal("testcolumn", columnName);
@@ -35,7 +35,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests
             string notation = "[userschema].[testTable].testcolumn";
 
             //Act
-            Helper.SplitColumnNotationIntoSingleParts(notation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+            Helper.SplitColumnNotationIntoSingleParts(notation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, false);
 
             //Assert
             Assert.Null(databaseName);

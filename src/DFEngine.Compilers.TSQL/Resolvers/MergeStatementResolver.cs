@@ -274,7 +274,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             if (target.Type != ExpressionType.COLUMN)
                 throw new ArgumentException("Expression has to be a column");
 
-            Helper.SplitColumnNotationIntoSingleParts(target.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+            Helper.SplitColumnNotationIntoSingleParts(target.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
             if (databaseObjectName == null)
             {

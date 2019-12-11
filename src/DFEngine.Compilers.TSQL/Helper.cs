@@ -14,7 +14,7 @@ namespace DFEngine.Compilers.TSQL
         /// Takes in a column notation and extracts in the single entities
         /// </summary>
         /// <param name="columnNotation">the notation of the column. Each part may contains square brackets</param>
-        public static void SplitColumnNotationIntoSingleParts(string columnNotation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName)
+        public static void SplitColumnNotationIntoSingleParts(string columnNotation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, bool allowNullValues = false)
         {
             if (string.IsNullOrEmpty(columnNotation))
                 throw new ArgumentException("Invalid columnname");
@@ -60,6 +60,21 @@ namespace DFEngine.Compilers.TSQL
                 else if (databaseName == null)
                     databaseName = StringHelper.RemoveSquareBrackets(columnNotation.Substring(counter + 1, lastDotPosition - counter));
             }
+
+            if(!allowNullValues)
+            {
+                if (string.IsNullOrEmpty(columnName))
+                    throw new ArgumentException("Column name may not be emtpy.", "columnNotation");
+
+                if (string.IsNullOrEmpty(databaseObjectName))
+                    throw new ArgumentException("Database object may not be emtpy.", "columnNotation");
+
+                if (string.IsNullOrEmpty(databaseSchema))
+                    throw new ArgumentException("Database schema may not be emtpy.", "columnNotation");
+
+                if (string.IsNullOrEmpty(databaseSchema))
+                    throw new ArgumentException("Database name may not be emtpy.", "columnNotation");
+            } 
         }
     }
 }

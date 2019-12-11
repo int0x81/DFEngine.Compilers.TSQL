@@ -293,7 +293,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         /// </summary>
         private static Expression BeautifyColumn(Expression column, CompilerContext context)
         {
-            Helper.SplitColumnNotationIntoSingleParts(column.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+            Helper.SplitColumnNotationIntoSingleParts(column.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
             if(databaseObjectName == null)
             {
@@ -542,7 +542,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         /// </summary>
         internal static string EnhanceNotation(DatabaseObject dbo, string originalNotation)
         {
-            Helper.SplitColumnNotationIntoSingleParts(originalNotation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+            Helper.SplitColumnNotationIntoSingleParts(originalNotation, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
             string enhancedNotation = $"{dbo.Name}.{columnName}";
 
@@ -575,7 +575,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
                     counter++;
                     continue;
                 }
-                Helper.SplitColumnNotationIntoSingleParts(el.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName);
+                Helper.SplitColumnNotationIntoSingleParts(el.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
                 if (!columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
                     counter++;
