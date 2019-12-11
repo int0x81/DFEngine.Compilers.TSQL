@@ -16,20 +16,12 @@ namespace DFEngine.Compilers.TSQL.LiveTest
 
             var compiler = new Compiler();
 
-            int good = 0;
-            int fail = 0;
-
             foreach(string file in files)
             {
                 string tsqlContent = File.ReadAllText(file);
-                //try
-                //{
-                    var options = new CompilerOptions() { ConsiderQueries = true };
-                    compiler.Compile(tsqlContent, "std_server", "std_db", file, options);
-                    good++;
-                //}
-                //catch(Exception) { fail++; }
-                Console.WriteLine(file + " Done");
+   
+                var options = new CompilerOptions() { ConsiderQueries = true };
+                var result = compiler.Compile(tsqlContent, "std_server", "std_db", file, options);
             }
         }
     }

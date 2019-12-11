@@ -274,7 +274,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         {
             if (query.Type.Equals(ExpressionType.COLUMN))
             {
-                query = BeautifyColumn(query, context);
+                query = BeautifyColumn(query, context); //BUG
             }
 
             var newSubExpr = new List<Expression>();
@@ -326,7 +326,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
 
                             return new Expression(ExpressionType.COLUMN)
                             {
-                                Name = $"{databaseName}.{databaseSchema}.{databaseObjectName}.{columnName}"
+                                Name = $"{databaseName}.{databaseSchema}.{databaseObjectName}.{columnName}",
+                                ChildExpressions = column.ChildExpressions
                             };
                         }
                         else
