@@ -94,8 +94,12 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             if (fileIndex < tokens.Length && tokens[fileIndex].Text.Equals(";"))
                 fileIndex++;
 
-            foreach(var exp in manipulation.Expressions)
-              StatementResolveHelper.BeautifyColumns(exp, context);
+            var beautified = new List<Expression>();
+
+            foreach (var exp in manipulation.Expressions)
+                beautified.Add(StatementResolveHelper.BeautifyColumns(exp, context));
+
+            manipulation.Expressions = beautified;
 
             return manipulation;
         }

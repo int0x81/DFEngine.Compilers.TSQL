@@ -48,8 +48,12 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             ResolveWhenExpression(tokens, ref fileIndex, context);
 
+            var beautified = new List<Expression>();
+
             foreach (var exp in manipulation.Expressions)
-                StatementResolveHelper.BeautifyColumns(exp, context);
+                beautified.Add(StatementResolveHelper.BeautifyColumns(exp, context));
+
+            manipulation.Expressions = beautified;
 
             while (!tokens[fileIndex].Text.ToLower().Equals(";"))
             {
