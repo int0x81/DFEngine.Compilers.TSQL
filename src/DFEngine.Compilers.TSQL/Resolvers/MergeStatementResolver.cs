@@ -32,6 +32,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             targetObject = StatementResolveHelper.ResolveDatabaseObject(tokens, ref fileIndex, context);
 
+            context.AddDatabaseObjectToCurrentContext(targetObject);
+
             if (!tokens[fileIndex].Text.ToLower().Equals("using"))
                 throw new InvalidSqlException("Trying to resolve a merge-statement without using keyword");
             
