@@ -63,7 +63,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 var cte = StatementResolveHelper.ResolveDatabaseObject(tokens, ref fileIndex, context);
                 cte.Alias = alias;
                 cte.Type = DatabaseObjectType.CTE;
-                cte.Columns = columns;
+                cte.Expressions = columns;
 
                 context.CurrentDatabaseObjectContext.Push(cte);
 

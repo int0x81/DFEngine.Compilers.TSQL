@@ -30,16 +30,10 @@ namespace DFEngine.Compilers.TSQL.Models.DataEntities
         public DatabaseObjectType Type { get; internal set; }
 
         /// <summary>
-        /// The columns as defined in the common table expression. If the object is no cte
-        /// this list will be empty
-        /// </summary>
-        public List<Expression> Columns { get; internal set; } = new List<Expression>();
-
-        /// <summary>
         /// A database object can be a tempopary object that is
         /// assembled by one or multiple expressions
         /// </summary>
-        public List<Expression> Expressions { get; } = new List<Expression>();
+        public List<Expression> Expressions { get; internal set; } = new List<Expression>();
 
         /// <summary>
         /// The name of the server on which this object exists

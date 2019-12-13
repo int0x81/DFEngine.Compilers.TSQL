@@ -31,9 +31,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
             {
                 var resolver = new SelectStatementResolver();
                 var statement = resolver.Resolve(tokens, ref fileIndex, context);
-                statement.Type = ExpressionType.SCALAR_FUNCTION;
                 dbo = new DatabaseObject(DatabaseObjectType.SELECTION);
-                dbo.Expressions.Add(statement);
+                dbo.Expressions.AddRange(statement.ChildExpressions);
             }
             else if(tokens[fileIndex].Type.Equals(TSQLTokenType.Identifier))
             {
@@ -274,7 +273,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         {
             if (query.Type.Equals(ExpressionType.COLUMN))
             {
-                query = BeautifyColumn(query, context); //BUG
+                query = BeautifyColumn(query, context);
             }
 
             var newSubExpr = new List<Expression>();
@@ -319,16 +318,12 @@ namespace DFEngine.Compilers.TSQL.Helpers
                     {
                         if(dbo.Name == null)
                         {
-                            //this case happens when the dbo is a dataset with an alias
-                            databaseObjectName = InternalConstants.UNRELATED_OBJECT_NAME;
-                            databaseSchema = InternalConstants.UNRELATED_SCHEMA_NAME;
-                            databaseName = InternalConstants.UNRELATED_DATABASE_NAME;
+                            Expression mappedExpression = MapExpressionFromRowSet(dbo, columnName);
 
-                            return new Expression(ExpressionType.COLUMN)
-                            {
-                                Name = $"{databaseName}.{databaseSchema}.{databaseObjectName}.{columnName}",
-                                ChildExpressions = column.ChildExpressions
-                            };
+                            if (mappedExpression == null)
+                                throw new InvalidSqlException("Column does not exist");
+
+                            return mappedExpression;
                         }
                         else
                         {
@@ -343,7 +338,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
 
                         break;
                     }
-                    if(dbo.Name != null && dbo.Name.Equals(databaseObjectName))
+                    if (dbo.Name != null && dbo.Name.Equals(databaseObjectName))
                     {
                         if (databaseSchema == null || databaseSchema.Equals(dbo.Schema, StringComparison.InvariantCultureIgnoreCase))
                             databaseSchema = dbo.Schema;
@@ -363,6 +358,24 @@ namespace DFEngine.Compilers.TSQL.Helpers
             }
             column.Name = $"{databaseName}.{databaseSchema}.{databaseObjectName}.{columnName}";
             return column;
+        }
+
+        /// <summary>
+        /// Loops through a given rowset and returns the expression that matches the name
+        /// or null, if no match was found
+        /// </summary>
+        /// <param name="rowSet">The rowset</param>
+        /// <param name="columnName">The column</param>
+        /// <returns></returns>
+        private static Expression MapExpressionFromRowSet(DatabaseObject rowSet, string columnName)
+        {
+            foreach(var item in rowSet.Expressions)
+            {
+                if (columnName.Equals(item.Name, StringComparison.InvariantCultureIgnoreCase))
+                    return item;
+            }
+
+            return null;
         }
 
         /// <summary>
