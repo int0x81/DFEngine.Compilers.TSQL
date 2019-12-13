@@ -97,8 +97,12 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             foreach(var obj in objects)
             {
                 context.AddDatabaseObjectToCurrentContext(obj);
+                statement.Expression.ChildExpressions.Add(new Expression(ExpressionType.COLUMN)
+                {
+                    Name = StatementResolveHelper.EnhanceNotation(obj, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                });
             }
-
+                
             objectsAddedToContext = objects.Count;
         }
 
@@ -303,11 +307,6 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                     fileIndex++;
                 }
             }
-        }
-
-        private static void SkipForClause(ReadOnlySpan<TSQLToken> tokens, ref int fileIndex)
-        {
-            throw new NotImplementedException("XML methods are not supported yet");
         }
     }
 }

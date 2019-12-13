@@ -25,7 +25,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(expression.ChildExpressions);
             Assert.Equal("stdDatabase.unrelated.someTable.*", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
@@ -45,7 +44,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(expression.ChildExpressions);
             Assert.Equal("stdDatabase.unrelated.someTable.someColumn_01", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
@@ -65,7 +63,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Equal(2, expression.ChildExpressions.Count);
             Assert.Equal("stdDatabase.unrelated.someTable.someColumn_01", expression.ChildExpressions[0].Name);
             Assert.Equal(ExpressionType.COLUMN, expression.ChildExpressions[1].Type);
             Assert.Equal("stdDatabase.unrelated.someTable.someColumn_02", expression.ChildExpressions[1].Name);
@@ -88,7 +85,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Equal(3, expression.ChildExpressions.Count);
             Assert.Equal("unrelated.unrelated.unrelated.someColumn", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
@@ -108,7 +104,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(expression.ChildExpressions);
             Assert.Equal("DWH.dbo.someDim.Keycol", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
@@ -128,7 +123,6 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Single(expression.ChildExpressions);
             Assert.Equal("DWH.dbo.someDim.Key", expression.ChildExpressions[0].Name);
             Assert.Equal("SELECT", expression.Name);
         }
