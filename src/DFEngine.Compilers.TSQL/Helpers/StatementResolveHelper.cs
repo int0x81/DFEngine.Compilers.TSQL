@@ -320,7 +320,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
                         {
                             Expression mappedExpression = MapExpressionFromRowSet(dbo, columnName);
 
-                            if (mappedExpression == null)
+                            if (mappedExpression == null) 
                                 throw new InvalidSqlException("Column does not exist");
 
                             return mappedExpression;
@@ -371,7 +371,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
         {
             foreach(var item in rowSet.Expressions)
             {
-                if (columnName.Equals(item.Name, StringComparison.InvariantCultureIgnoreCase))
+                Helper.SplitColumnNotationIntoSingleParts(item.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string itemColumnName);
+                if (columnName.Equals(itemColumnName, StringComparison.InvariantCultureIgnoreCase))
                     return item;
             }
 

@@ -168,7 +168,6 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             do
             {
-                //string possibleAlias = null;
                 var innerExpression = StatementResolveHelper.ResolveExpression(tokens, ref fileIndex, context);
 
                 if (fileIndex < tokens.Length && tokens[fileIndex].Text.ToLower().Equals("="))
@@ -177,27 +176,29 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                     fileIndex++; //skip '='
                     StatementResolveHelper.ResolveExpression(tokens, ref fileIndex, context);
                 }
-                else
-                {
-                    //if (innerExpression.Type.Equals(ExpressionType.SCALAR_FUNCTION) || innerExpression.Type.Equals(ExpressionType.COMPLEX))
-                    //    query.ChildExpressions.AddRange(innerExpression.ChildExpressions);
-                    //else if (innerExpression.Type.Equals(ExpressionType.COLUMN))
-                        query.ChildExpressions.Add(innerExpression);
-                }
-                    
-
+                
                 if (fileIndex >= tokens.Length)
                     return query;
-
 
                 if (tokens[fileIndex].Text.ToLower().Equals("as"))
                 {
                     fileIndex++; //skip as
-                    //possibleAlias = tokens[fileIndex].Text;
+                    string possibleAlias = tokens[fileIndex].Text;
                     fileIndex++; //skip alias
+                    var aliasExpression = new Expression(ExpressionType.COLUMN) { Name = possibleAlias };
+                    aliasExpression.ChildExpressions.Add(innerExpression);
+                    query.ChildExpressions.Add(aliasExpression);
                 }
                 else if (tokens[fileIndex].Type.Equals(TSQLTokenType.Identifier))
-                    fileIndex++;
+                {
+                    string possibleAlias = tokens[fileIndex].Text;
+                    fileIndex++; //skip alias
+                    var aliasExpression = new Expression(ExpressionType.COLUMN) { Name = possibleAlias };
+                    aliasExpression.ChildExpressions.Add(innerExpression);
+                    query.ChildExpressions.Add(aliasExpression);
+                }
+                else
+                    query.ChildExpressions.Add(innerExpression);
 
                 if (tokens[fileIndex].Text.Equals(","))
                 {

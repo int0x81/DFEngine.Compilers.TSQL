@@ -17,12 +17,6 @@ namespace DFEngine.Compilers.TSQL.Models
         public ExpressionType Type { get; internal set; }
 
         /// <summary>
-        /// The id of the concrete data object that exists in the landscape.static
-        /// If this expression is a scalar function the Reference will be 0
-        /// </summary>
-        //public int LandscapeReference { get; internal set; }
-
-        /// <summary>
         /// The value of the expression if its not a scalar_function
         /// </summary>
         public string Name { get; internal set; }
@@ -38,6 +32,5 @@ namespace DFEngine.Compilers.TSQL.Models
         }
 
         public override string ToString() => "[" + Type.ToString() + "]: " + Name;
-        
     }
 }
