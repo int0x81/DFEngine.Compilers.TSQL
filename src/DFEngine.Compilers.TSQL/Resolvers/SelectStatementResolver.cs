@@ -185,7 +185,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                     fileIndex++; //skip as
                     string possibleAlias = tokens[fileIndex].Text;
                     fileIndex++; //skip alias
-                    var aliasExpression = new Expression(ExpressionType.COLUMN) { Name = possibleAlias };
+                    var aliasExpression = new Expression(ExpressionType.ALIAS) { Name = possibleAlias };
                     aliasExpression.ChildExpressions.Add(innerExpression);
                     query.ChildExpressions.Add(aliasExpression);
                 }
@@ -193,7 +193,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 {
                     string possibleAlias = tokens[fileIndex].Text;
                     fileIndex++; //skip alias
-                    var aliasExpression = new Expression(ExpressionType.COLUMN) { Name = possibleAlias };
+                    var aliasExpression = new Expression(ExpressionType.ALIAS) { Name = possibleAlias };
                     aliasExpression.ChildExpressions.Add(innerExpression);
                     query.ChildExpressions.Add(aliasExpression);
                 }

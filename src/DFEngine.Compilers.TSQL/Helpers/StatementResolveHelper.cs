@@ -130,8 +130,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
 
             expressions = StripeConstantValues(expressions);
 
-            if(expressions.Count == 1)
-                return expressions[0];
+            if(TryGetSingleRealExpression(expressions, out Expression possibleSingleReal))
+                return possibleSingleReal;
             else
             {
                 return new Expression(ExpressionType.COMPLEX)
@@ -362,21 +362,35 @@ namespace DFEngine.Compilers.TSQL.Helpers
 
         /// <summary>
         /// Loops through a given rowset and returns the expression that matches the name
-        /// or null, if no match was found
         /// </summary>
-        /// <param name="rowSet">The rowset</param>
-        /// <param name="columnName">The column</param>
-        /// <returns></returns>
         private static Expression MapExpressionFromRowSet(DatabaseObject rowSet, string columnName)
         {
             foreach(var item in rowSet.Expressions)
             {
-                Helper.SplitColumnNotationIntoSingleParts(item.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string itemColumnName);
-                if (columnName.Equals(itemColumnName, StringComparison.InvariantCultureIgnoreCase))
-                    return item;
+                if(item.Type.Equals(ExpressionType.COLUMN))
+                {
+                    Helper.SplitColumnNotationIntoSingleParts(item.Name, out _, out _, out _, out string itemColumnName);
+                    if (columnName.Equals(itemColumnName, StringComparison.InvariantCultureIgnoreCase))
+                        return item;
+                }
+                if(item.Type.Equals(ExpressionType.ALIAS))
+                {
+                    if (columnName.Equals(item.Name, StringComparison.InvariantCultureIgnoreCase))
+                        return item;
+                }
             }
 
-            return null;
+            //At this point we did not find a direct match in the rowset.
+            //Now we want to check if the rowset is build out of a single database object.
+            //If so, we just expected the column to be in this dbo, else we return a
+            //unrelated column.
+            if (TryGetSingleDataSource(rowSet.Expressions, out DatabaseObject singleDbo))
+                return new Expression(ExpressionType.COLUMN) { Name = EnhanceNotation(singleDbo, columnName) };
+            else
+            {
+                Helper.SplitColumnNotationIntoSingleParts(columnName, out _, out _, out _, out string itemColumnName);
+                return new Expression(ExpressionType.COLUMN) { Name = $"unrelated.unrelated.unrelated.{itemColumnName}" };
+            }
         }
 
         /// <summary>
@@ -597,6 +611,78 @@ namespace DFEngine.Compilers.TSQL.Helpers
             }
             
             return counter == smallerOne.Count;
+        }
+
+        /// <summary>
+        /// Checks if a list of expressions contains a single real expression
+        /// </summary>
+        private static bool TryGetSingleRealExpression(List<Expression> expressions, out Expression singleRealExpression)
+        {
+            singleRealExpression = null;
+
+            foreach(var expression in expressions)
+            {
+                if (!expression.Type.Equals(ExpressionType.COLUMN))
+                    continue;
+                
+                Helper.SplitColumnNotationIntoSingleParts(expression.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+
+                if (!columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (singleRealExpression != null)
+                    {
+                        singleRealExpression = null;
+                        return false;
+                    }
+                    else
+                        singleRealExpression = expression;
+                }
+            }
+
+            if (singleRealExpression == null)
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// Checks if a list of expressions is part of just a single
+        /// real data source
+        /// </summary>
+        private static bool TryGetSingleDataSource(List<Expression> expressions, out DatabaseObject singleDataSource)
+        {
+            singleDataSource = null;
+
+            foreach (var expression in expressions)
+            {
+                if (!expression.Type.Equals(ExpressionType.COLUMN))
+                    continue;
+
+                Helper.SplitColumnNotationIntoSingleParts(expression.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+
+                if (columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
+                if (singleDataSource == null)
+                {
+                    singleDataSource = new DatabaseObject(DatabaseObjectType.REAL)
+                    {
+                        Database = databaseName,
+                        Schema = databaseSchema,
+                        Name = databaseObjectName
+                    };
+                }
+                else
+                {
+                    if(!databaseObjectName.Equals(singleDataSource.Name))
+                    {
+                        singleDataSource = null;
+                        return false;
+                    } 
+                }
+            }
+
+            return singleDataSource != null;
         }
 
         /// <summary>
