@@ -394,7 +394,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
                 return new Expression(ExpressionType.COLUMN) { Name = EnhanceNotation(singleDbo, columnName) };
             else
             {
-                Helper.SplitColumnNotationIntoSingleParts(columnName, out _, out _, out _, out string itemColumnName);
+                Helper.SplitColumnNotationIntoSingleParts(columnName, out _, out _, out _, out string itemColumnName, true);
                 return new Expression(ExpressionType.COLUMN) { Name = $"unrelated.unrelated.unrelated.{itemColumnName}" };
             }
         }

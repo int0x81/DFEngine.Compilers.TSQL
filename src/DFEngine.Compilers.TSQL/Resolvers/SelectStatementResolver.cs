@@ -97,6 +97,10 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             foreach(var obj in objects)
             {
                 context.AddDatabaseObjectToCurrentContext(obj);
+
+                if (!obj.Type.Equals(DatabaseObjectType.REAL))
+                    continue;
+
                 statement.Expression.ChildExpressions.Add(new Expression(ExpressionType.COLUMN)
                 {
                     Name = StatementResolveHelper.EnhanceNotation(obj, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
