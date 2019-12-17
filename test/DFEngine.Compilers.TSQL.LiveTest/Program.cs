@@ -23,7 +23,7 @@ namespace DFEngine.Compilers.TSQL.LiveTest
    
                 var options = new CompilerOptions() { ConsiderQueries = true };
                 var result = compiler.Compile(tsqlContent, "std_server", "std_db", file, options);
-                CheckAllColumnNotations(result);
+                //CheckAllColumnNotations(result);
             }
         }
 

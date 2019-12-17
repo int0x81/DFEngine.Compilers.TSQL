@@ -55,7 +55,10 @@ namespace DFEngine.Compilers.TSQL.Helpers
             {
                 dbo = new DatabaseObject(DatabaseObjectType.VARIABLE)
                 {
-                    Name = tokens[fileIndex].Text
+                    Name = tokens[fileIndex].Text,
+                    Database = InternalConstants.UNRELATED_DATABASE_NAME,
+                    Schema = InternalConstants.UNRELATED_SCHEMA_NAME,
+                    Server = InternalConstants.UNRELATED_SERVER_NAME
                 };
 
                 fileIndex++;
@@ -293,6 +296,9 @@ namespace DFEngine.Compilers.TSQL.Helpers
         private static Expression BeautifyColumn(Expression column, CompilerContext context)
         {
             Helper.SplitColumnNotationIntoSingleParts(column.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+
+            if (columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                return column;
 
             if(databaseObjectName == null)
             {
