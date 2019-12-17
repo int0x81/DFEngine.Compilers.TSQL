@@ -29,7 +29,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             do
             {
-                var target = StatementResolveHelper.ResolveExpression(tokens, ref fileIndex, context); //resolve target column
+                //Resolves the target object. Note that this target can be an alias that is resolved later in the FROM statement
+                var target = StatementResolveHelper.ResolveExpression(tokens, ref fileIndex, context);
 
                 AddTargetObject(target, targetObject);
 
@@ -56,6 +57,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             if(objects.Count > 1)
             {
+                targetObject = AssignRealTarget(objects, targetObject);
                 var targetSynonymous = new Expression(ExpressionType.COLUMN)
                 {
                     Name = StatementResolveHelper.EnhanceNotation(targetObject, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
@@ -86,6 +88,25 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             PopObjectsFromContextStack(context);
 
             return manipulation;
+        }
+
+        /// <summary>
+        /// Gets the actual target dbo synonymous. We can only know the actual target dbo after
+        /// the from statement since the first target identifier can be an alias that
+        /// is declared in the from statement
+        /// </summary>
+        /// <param name="objects">All objects found in the from statement including their
+        /// aliases</param>
+        /// <param name="firstStageTarget">The first stage target that can be an alias</param>
+        private DatabaseObject AssignRealTarget(List<DatabaseObject> objects, DatabaseObject firstStageTarget)
+        {
+            foreach(var dbo in objects)
+            {
+                if (dbo.Alias.Equals(firstStageTarget.Name, StringComparison.InvariantCultureIgnoreCase))
+                    return dbo;    
+            }
+
+            return firstStageTarget;
         }
 
         /// <summary>
