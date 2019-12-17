@@ -2,6 +2,9 @@
 using DFEngine.Compilers.TSQL.Helpers;
 using System.Collections.Generic;
 using Xunit;
+using System;
+using static DFEngine.Compilers.TSQL.UnitTests.TestHelper;
+using static System.Console;
 
 namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
@@ -60,6 +63,13 @@ namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
             //Assert
             Assert.Empty(result.DataQueries);
             Assert.Single(result.DataManipulations);
+
+            //result.DataManipulations[0].Expressions.GetExpectedExpression("BI_STAGE.dbo.ERP_Company.No").ChildExpressions
+            //    .GetExpectedExpression("ERP2099PROD.dbo.Compam.Name");
+            //result.DataManipulations[0].Expressions.GetExpectedExpression("BI_STAGE.dbo.ERP_Company.Name").ChildExpressions
+            //    .GetExpectedExpression("ERP2099PROD.dbo.Compam.Name");
+            //result.DataManipulations[0].Expressions.GetExpectedExpression("BI_STAGE.dbo.ERP_Company.AccountType").ChildExpressions
+            //    .GetExpectedExpression("ERP2099PROD.dbo.Compam.Type of Company");
         }
     }
 }

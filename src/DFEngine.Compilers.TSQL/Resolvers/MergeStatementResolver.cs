@@ -48,7 +48,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             SearchConditionResolver.Resolve(tokens, ref fileIndex, context);
 
-            ResolveWhenExpression(tokens, ref fileIndex, context);
+            while(tokens[fileIndex].Text.Equals("when", StringComparison.InvariantCultureIgnoreCase))
+                ResolveWhenExpression(tokens, ref fileIndex, context);
 
             var beautified = new List<Expression>();
 
@@ -126,6 +127,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                     fileIndex++; //skip 'by'
                     if (tokens[fileIndex].Text.Equals("source", StringComparison.InvariantCultureIgnoreCase))
                     {
+                        fileIndex++; //skip source
+
                         if (tokens[fileIndex].Text.Equals("and", StringComparison.InvariantCultureIgnoreCase))
                         {
                             fileIndex++; //skip 'and'
@@ -237,12 +240,20 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 } while (true);
 
                 fileIndex++; //skip ')'
+
+                if (targets.Count != sources.Count)
+                    throw new InvalidSqlException("Unable to resolve MERGE statement.");
+
+                for (int counter = 0; counter < targets.Count; counter++)
+                {
+                    targets[counter].ChildExpressions.Add(sources[counter]);
+                    manipulation.Expressions.Add(targets[counter]);
+                }
             }
             else if (tokens[fileIndex].Text.Equals("default", StringComparison.InvariantCultureIgnoreCase))
                 fileIndex += 2; //skip 'default values'
             else
                 throw new InvalidSqlException("Unable to compile ");
-
         }
 
         /// <summary>

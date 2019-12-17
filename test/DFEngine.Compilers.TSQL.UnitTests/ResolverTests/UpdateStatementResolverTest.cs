@@ -31,7 +31,7 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             Assert.Equal(ExpressionType.COLUMN, statement.Expressions[0].Type);
             Assert.Equal("Stage_DB.dbo.someTable.tIsLastRecord", statement.Expressions[0].Name);
             Assert.Single(statement.Expressions[0].ChildExpressions);
-            Assert.Equal("unrelated.unrelated.unrelated.tValidUntil", statement.Expressions[0].ChildExpressions[0].Name);
+            Assert.Equal("stdDatabase.unrelated.someOtherTable.tValidUntil", statement.Expressions[0].ChildExpressions[0].Name);
         }
 
         [Fact]

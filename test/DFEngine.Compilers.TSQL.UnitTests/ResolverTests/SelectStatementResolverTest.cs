@@ -6,7 +6,7 @@ using TSQL.Tokens;
 using Xunit;
 using TSQL;
 
-namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
+namespace DFEngine.Compilers.TSQL.UnitTests.ResolverTests
 {
     public class SelectStatementResolverTest
     {
@@ -44,7 +44,8 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
 
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
-            Assert.Equal("stdDatabase.unrelated.someTable.someColumn_01", expression.ChildExpressions[0].Name);
+            expression.ChildExpressions.GetExpectedExpression("someAlias").ChildExpressions.
+                GetExpectedExpression("stdDatabase.unrelated.someTable.someColumn_01");
             Assert.Equal("SELECT", expression.Name);
         }
 
@@ -64,13 +65,13 @@ namespace DFEngine.Compilers.TSQL.UnitTests.StatementResolverTests
             //Assert
             Assert.Equal(tokens.Length, fileIndex);
             Assert.Equal("stdDatabase.unrelated.someTable.someColumn_01", expression.ChildExpressions[0].Name);
-            Assert.Equal(ExpressionType.COLUMN, expression.ChildExpressions[1].Type);
-            Assert.Equal("stdDatabase.unrelated.someTable.someColumn_02", expression.ChildExpressions[1].Name);
+            Assert.Equal(ExpressionType.ALIAS, expression.ChildExpressions[1].Type);
+            expression.ChildExpressions.GetExpectedExpression("someAlias")
+                .ChildExpressions.GetExpectedExpression("stdDatabase.unrelated.someTable.someColumn_02");
             Assert.Equal("SELECT", expression.Name);
         }
 
         [Fact]
-
         public void ShouldResolveSelectStatementWithMultipleTables()
         {
             //Arrange
