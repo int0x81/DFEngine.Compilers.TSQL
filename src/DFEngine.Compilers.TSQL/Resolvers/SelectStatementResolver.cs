@@ -308,6 +308,9 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
                 foreach (var expr in statement.Expression.ChildExpressions)
                 {
+                    if (!expr.Type.Equals(ExpressionType.COLUMN))
+                        continue;
+
                     Helper.SplitColumnNotationIntoSingleParts(expr.Name, out string databaseName, out string schemaName, out string dboName, out string columnName);
 
                     if (dbo.Name.Equals(dboName))
