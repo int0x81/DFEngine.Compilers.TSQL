@@ -102,7 +102,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
         {
             foreach(var dbo in objects)
             {
-                if (dbo.Alias.Equals(firstStageTarget.Name, StringComparison.InvariantCultureIgnoreCase))
+                if (dbo.Alias != null && dbo.Alias.Equals(firstStageTarget.Name, StringComparison.InvariantCultureIgnoreCase))
                     return dbo;    
             }
 
