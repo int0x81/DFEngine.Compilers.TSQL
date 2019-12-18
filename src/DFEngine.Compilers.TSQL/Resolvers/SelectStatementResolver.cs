@@ -45,23 +45,11 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             var objects = StatementResolveHelper.ResolveFromStatement(tokens, ref fileIndex, context);
 
-            if (objects.Count > 1)
-            {
-                foreach (var dbo in objects)
-                {
-                    if (!dbo.Type.Equals(DatabaseObjectType.REAL))
-                        continue;
-                    var sourceSynonymous = new Expression(ExpressionType.COLUMN)
-                    {
-                        Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
-                    };
-                    statement.Expression.ChildExpressions.Add(sourceSynonymous);
-                }
-            }
-
             AddObjectsToContext(objects, context);
 
             StatementResolveHelper.BeautifyColumns(statement.Expression, context);
+
+            AddSynonymousObjects(objects);
 
             StatementResolveHelper.ResolveWhereStatement(tokens, ref fileIndex, context);
 
@@ -95,17 +83,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
         private void AddObjectsToContext(List<DatabaseObject> objects, CompilerContext context)
         {
             foreach(var obj in objects)
-            {
                 context.AddDatabaseObjectToCurrentContext(obj);
-
-                if (!obj.Type.Equals(DatabaseObjectType.REAL))
-                    continue;
-
-                statement.Expression.ChildExpressions.Add(new Expression(ExpressionType.COLUMN)
-                {
-                    Name = StatementResolveHelper.EnhanceNotation(obj, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
-                });
-            }
                 
             objectsAddedToContext = objects.Count;
         }
@@ -310,6 +288,42 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 {
                     openBracketCounter--;
                     fileIndex++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loops through all collected database objects and add a
+        /// whole-object-synonymous for each object that is not referenced
+        /// in a column
+        /// </summary>
+        private void AddSynonymousObjects(List<DatabaseObject> databaseObjects)
+        {
+            foreach (var dbo in databaseObjects)
+            {
+                if (!dbo.Type.Equals(DatabaseObjectType.REAL))
+                    continue;
+
+                bool isReferenced = false;
+
+                foreach (var expr in statement.Expression.ChildExpressions)
+                {
+                    Helper.SplitColumnNotationIntoSingleParts(expr.Name, out string databaseName, out string schemaName, out string dboName, out string columnName);
+
+                    if (dbo.Name.Equals(dboName))
+                    {
+                        isReferenced = true;
+                        break;
+                    }
+                }
+
+                if(!isReferenced)
+                {
+                    var sourceSynonymous = new Expression(ExpressionType.COLUMN)
+                    {
+                        Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                    };
+                    statement.Expression.ChildExpressions.Add(sourceSynonymous);
                 }
             }
         }
