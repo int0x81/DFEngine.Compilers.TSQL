@@ -80,5 +80,32 @@ namespace DFEngine.Compilers.TSQL.Models.DataEntities
         {
             Type = type;
         }
+
+        /// <summary>
+        /// Two database objects are considered equal if all parts of the dbos match.
+        /// When comparing two objects with incomplete information the comparison can
+        /// lead two true although they are actual not equal.
+        /// </summary>
+        public override bool Equals(object obj)
+        {
+            if (obj is DatabaseObject dboToCompare)
+            {
+                if (!Server.Equals(dboToCompare.Server))
+                    return false;
+
+                if (!Database.Equals(dboToCompare.Database))
+                        return false;
+
+                if (!Schema.Equals(dboToCompare.Schema))
+                    return false;
+
+                if (!Name.Equals(dboToCompare.Name))
+                    return false;
+
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }
