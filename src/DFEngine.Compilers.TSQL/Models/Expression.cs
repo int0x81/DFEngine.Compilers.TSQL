@@ -1,6 +1,5 @@
-using System;
+using DFEngine.Compilers.TSQL.Helpers;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DFEngine.Compilers.TSQL.Models
 {
@@ -25,6 +24,23 @@ namespace DFEngine.Compilers.TSQL.Models
         /// The child sources which this data source is made of
         /// </summary>
         public List<Expression> ChildExpressions { get; internal set; } = new List<Expression>();
+        public bool IsWholeObjectSynonymous 
+        { 
+            get 
+            {
+                Helper.SplitColumnNotationIntoSingleParts(Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+                return !string.IsNullOrEmpty(columnName) && columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS);
+            } 
+        }
+
+        public bool HasUnrelatedDatabaseObject
+        {
+            get
+            {
+                Helper.SplitColumnNotationIntoSingleParts(Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+                return !string.IsNullOrEmpty(databaseObjectName) && databaseObjectName.Equals(InternalConstants.UNRELATED_OBJECT_NAME);
+            }
+        }
 
         internal Expression(ExpressionType type)
         {

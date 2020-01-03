@@ -329,7 +329,10 @@ namespace DFEngine.Compilers.TSQL.Helpers
                             if (mappedExpression == null) 
                                 throw new InvalidSqlException("Column does not exist");
 
-                            return mappedExpression;
+                            if (mappedExpression.HasUnrelatedDatabaseObject || !mappedExpression.Type.Equals(ExpressionType.COLUMN))
+                                AddWholeObjectSynonymousToChildExpressions(mappedExpression, dbo);
+
+                                return mappedExpression;
                         }
                         else
                         {
@@ -396,6 +399,20 @@ namespace DFEngine.Compilers.TSQL.Helpers
             {
                 Helper.SplitColumnNotationIntoSingleParts(columnName, out _, out _, out _, out string itemColumnName, true);
                 return new Expression(ExpressionType.COLUMN) { Name = $"unrelated.unrelated.unrelated.{itemColumnName}" };
+            }
+        }
+
+        /// <summary>
+        /// Adds all whole object synonymous objects of a given dbo as child expressions to a given expression
+        /// </summary>
+        /// <param name="parentExpression">The parent expression to what the synonymous shall be added to</param>
+        /// <param name="dbo">The rowset we are quering for whole object synonymous</param>
+        private static void AddWholeObjectSynonymousToChildExpressions(Expression parentExpression, DatabaseObject dbo)
+        {
+            foreach(var expression in dbo.Expressions)
+            {
+                if(expression.IsWholeObjectSynonymous)
+                    parentExpression.ChildExpressions.Add(expression);
             }
         }
 
