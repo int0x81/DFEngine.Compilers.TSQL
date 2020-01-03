@@ -84,7 +84,7 @@ namespace DFEngine.Compilers.TSQL.Models
                 {
                     var singleManipulation = new Expression(ExpressionType.COLUMN)
                     {
-                        Name = StatementResolveHelper.EnhanceNotation(statement.TargetObject, InternalConstants.UNRELATED_COLUMN_NAME)
+                        Name = Beautifier.EnhanceNotation(statement.TargetObject, InternalConstants.UNRELATED_COLUMN_NAME)
                     };
 
                     singleManipulation.ChildExpressions.Add(expr);

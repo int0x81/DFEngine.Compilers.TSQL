@@ -54,7 +54,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             var beautified = new List<Expression>();
 
             foreach (var exp in manipulation.Expressions)
-                beautified.Add(StatementResolveHelper.BeautifyColumns(exp, context));
+                beautified.Add(Beautifier.BeautifyColumns(exp, context));
 
             manipulation.Expressions = beautified;
 

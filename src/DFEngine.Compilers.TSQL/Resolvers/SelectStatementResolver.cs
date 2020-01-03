@@ -47,7 +47,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
             AddObjectsToContext(objects, context);
 
-            StatementResolveHelper.BeautifyColumns(statement.Expression, context);
+            Beautifier.BeautifyColumns(statement.Expression, context);
 
             AddSynonymousObjects(objects);
 
@@ -324,7 +324,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 {
                     var sourceSynonymous = new Expression(ExpressionType.COLUMN)
                     {
-                        Name = StatementResolveHelper.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                        Name = Beautifier.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
                     };
                     statement.Expression.ChildExpressions.Add(sourceSynonymous);
                 }

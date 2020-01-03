@@ -65,7 +65,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
 
                     var singleManipulation = new Expression(ExpressionType.COLUMN)
                     {
-                        Name = StatementResolveHelper.EnhanceNotation(targetObject, InternalConstants.UNRELATED_COLUMN_NAME)
+                        Name = Beautifier.EnhanceNotation(targetObject, InternalConstants.UNRELATED_COLUMN_NAME)
                     };
 
                     singleManipulation.ChildExpressions.Add(sources[index]);
@@ -97,7 +97,7 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             var beautified = new List<Expression>();
 
             foreach (var exp in manipulation.Expressions)
-                beautified.Add(StatementResolveHelper.BeautifyColumns(exp, context));
+                beautified.Add(Beautifier.BeautifyColumns(exp, context));
 
             manipulation.Expressions = beautified;
 
