@@ -18,14 +18,14 @@ var result = new Compiler().compile(your_sql, sql_server, std_database, causer, 
 ```
 
 The result contains 
--> DataQueries (SELECT (only top-level))
--> DataManipulations (INSERT, UPDATE, DELETE, MERGE)
+* DataQueries (SELECT (only top-level))
+* DataManipulations (INSERT, UPDATE, DELETE, MERGE)
 
 In the example above, the compiler result will contain a single data manipulation with 3 expressions; each for a column, that is beeing
-targeted within the INSERT-statement. Each of these expressions again have child expressions that represent
+targeted within the INSERT-statement. Each of these expressions may again have child expressions that represent
 the relations and form an expression tree.
 Note that the purpose of this library is showing the relations between database objects and columns. Constant values
-are not taken into the expression tree. The thrid expressionin the example will not have a child expression, since '4' is a constant value.
+are not taken into the expression tree. The third expression in the example will not have a child expression, since '4' is a constant value.
 
 ## Attributions
 This compiler uses the [TSQL-Parser](https://github.com/bruce-dunwiddie/tsql-parser) library by [Bruce Dunwiddie](https://github.com/bruce-dunwiddie) for the tokenization of the raw tsql.
