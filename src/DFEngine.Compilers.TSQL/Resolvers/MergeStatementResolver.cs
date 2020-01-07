@@ -3,7 +3,6 @@ using DFEngine.Compilers.TSQL.Models;
 using DFEngine.Compilers.TSQL.Exceptions;
 using DFEngine.Compilers.TSQL.Helpers;
 using TSQL.Tokens;
-using DFEngine.Compilers.TSQL.Models.DataEntities;
 using System.Collections.Generic;
 
 namespace DFEngine.Compilers.TSQL.Resolvers

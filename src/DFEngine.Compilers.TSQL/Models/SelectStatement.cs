@@ -1,5 +1,3 @@
-using DFEngine.Compilers.TSQL.Models.DataEntities;
-
 namespace DFEngine.Compilers.TSQL.Models
 {
     /// <summary>

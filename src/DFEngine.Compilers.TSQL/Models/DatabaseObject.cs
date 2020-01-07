@@ -2,10 +2,8 @@
 using DFEngine.Compilers.TSQL.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using DFEngine.Compilers.TSQL.Models;
 
-namespace DFEngine.Compilers.TSQL.Models.DataEntities
+namespace DFEngine.Compilers.TSQL.Models
 {
     /// <summary>
     /// Represents a database object (e.g. tables, views, etc)

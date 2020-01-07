@@ -1,5 +1,4 @@
 ﻿using DFEngine.Compilers.TSQL.Helpers;
-using DFEngine.Compilers.TSQL.Models.DataEntities;
 using System;
 using System.Collections.Generic;
 using System.Text;

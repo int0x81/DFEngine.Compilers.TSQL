@@ -1,6 +1,5 @@
 ﻿using DFEngine.Compilers.TSQL.Exceptions;
 using DFEngine.Compilers.TSQL.Models;
-using DFEngine.Compilers.TSQL.Models.DataEntities;
 using System;
 using System.Collections.Generic;
 using System.Text;

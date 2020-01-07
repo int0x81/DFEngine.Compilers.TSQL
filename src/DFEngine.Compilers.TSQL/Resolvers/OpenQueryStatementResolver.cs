@@ -1,7 +1,6 @@
 ﻿using System;
 using DFEngine.Compilers.TSQL.Helpers;
 using TSQL.Tokens;
-using DFEngine.Compilers.TSQL.Models.DataEntities;
 using DFEngine.Compilers.TSQL.Models;
 
 namespace DFEngine.Compilers.TSQL.Resolvers
