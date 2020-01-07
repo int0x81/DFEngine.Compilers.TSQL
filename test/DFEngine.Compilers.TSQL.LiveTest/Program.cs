@@ -5,7 +5,7 @@ using System.IO;
 namespace DFEngine.Compilers.TSQL.LiveTest
 {
     /// <summary>
-    /// Simple console application for testing purposes that compiles a local script
+    /// Simple console application for testing purposes that compiles scripts in a local folder
     /// </summary>
     class Program
     {

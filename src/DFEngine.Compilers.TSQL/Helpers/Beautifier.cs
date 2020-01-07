@@ -63,7 +63,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         {
             Helper.SplitColumnNotationIntoSingleParts(column.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
-            if (columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+            if (column.WholeObjectSynonymous)
                 return column;
 
             if (databaseObjectName == null)
@@ -177,11 +177,10 @@ namespace DFEngine.Compilers.TSQL.Helpers
         {
             foreach (var expression in dbo.Expressions)
             {
-                if (expression.IsWholeObjectSynonymous)
+                if (expression.WholeObjectSynonymous)
                     parentExpression.ChildExpressions.Add(expression);
             }
         }
-
 
         private static bool TryGetSingleDataSource(List<Expression> expressions, out DatabaseObject singleDataSource)
         {
@@ -194,7 +193,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
 
                 Helper.SplitColumnNotationIntoSingleParts(expression.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
-                if (columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                if (expression.WholeObjectSynonymous)
                     continue;
 
                 if (singleDataSource == null)

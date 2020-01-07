@@ -323,7 +323,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 {
                     var sourceSynonymous = new Expression(ExpressionType.COLUMN)
                     {
-                        Name = Beautifier.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                        Name = Beautifier.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS),
+                        WholeObjectSynonymous = true
                     };
                     statement.Expression.ChildExpressions.Add(sourceSynonymous);
                 }

@@ -58,7 +58,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                 targetObject = AssignRealTarget(objects, targetObject);
                 var targetSynonymous = new Expression(ExpressionType.COLUMN)
                 {
-                    Name = Beautifier.EnhanceNotation(targetObject, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                    Name = Beautifier.EnhanceNotation(targetObject, InternalConstants.WHOLE_OBJECT_SYNONYMOUS),
+                    WholeObjectSynonymous = true
                 };
 
                 foreach (var dbo in objects)
@@ -67,7 +68,8 @@ namespace DFEngine.Compilers.TSQL.Resolvers
                         continue;
                     var sourceSynonymous = new Expression(ExpressionType.COLUMN)
                     {
-                        Name = Beautifier.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS)
+                        Name = Beautifier.EnhanceNotation(dbo, InternalConstants.WHOLE_OBJECT_SYNONYMOUS),
+                        WholeObjectSynonymous = true
                     };
                     targetSynonymous.ChildExpressions.Add(sourceSynonymous);
                     manipulation.Expressions.Add(targetSynonymous);

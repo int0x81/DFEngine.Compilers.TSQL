@@ -21,23 +21,20 @@ namespace DFEngine.Compilers.TSQL.Models
         public string Name { get; internal set; }
 
         /// <summary>
+        /// States if the expression is a synonymous for its parent database object
+        /// </summary>
+        public bool WholeObjectSynonymous { get; internal set; } = false;
+
+        /// <summary>
         /// The child sources which this data source is made of
         /// </summary>
         public List<Expression> ChildExpressions { get; internal set; } = new List<Expression>();
-        public bool IsWholeObjectSynonymous 
-        { 
-            get 
-            {
-                Helper.SplitColumnNotationIntoSingleParts(Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
-                return !string.IsNullOrEmpty(columnName) && columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS);
-            } 
-        }
 
         public bool HasUnrelatedDatabaseObject
         {
             get
             {
-                Helper.SplitColumnNotationIntoSingleParts(Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
+                Helper.SplitColumnNotationIntoSingleParts(Name, out _, out _, out string databaseObjectName, out _, true);
                 return !string.IsNullOrEmpty(databaseObjectName) && databaseObjectName.Equals(InternalConstants.UNRELATED_OBJECT_NAME);
             }
         }
@@ -47,6 +44,6 @@ namespace DFEngine.Compilers.TSQL.Models
            Type = type;
         }
 
-        public override string ToString() => "[" + Type.ToString() + "]: " + Name;
+        public override string ToString() => $"[{Type.ToString()}]: {Name}";
     }
 }

@@ -456,9 +456,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
                     counter++;
                     continue;
                 }
-                Helper.SplitColumnNotationIntoSingleParts(el.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
-                if (!columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                if (!el.WholeObjectSynonymous)
                     counter++;
             }
             
@@ -476,10 +475,8 @@ namespace DFEngine.Compilers.TSQL.Helpers
             {
                 if (!expression.Type.Equals(ExpressionType.COLUMN))
                     continue;
-                
-                Helper.SplitColumnNotationIntoSingleParts(expression.Name, out string databaseName, out string databaseSchema, out string databaseObjectName, out string columnName, true);
 
-                if (!columnName.Equals(InternalConstants.WHOLE_OBJECT_SYNONYMOUS, StringComparison.InvariantCultureIgnoreCase))
+                if (!expression.WholeObjectSynonymous)
                 {
                     if (singleRealExpression != null)
                     {
