@@ -7,15 +7,14 @@ Originally written for the  free-to-use sql-visualization-tool [dfengine.io](htt
 ## Get started
 ```csharp
 //1. Initialize
-var compiler = new Compiler();
 string your_sql = "INSERT INTO dbo.Costumers (Name, Age, Rating) VALUES (appDB.dbo.Costumers.Name, appDB.[dbo].Costumers.Age, 4)";     //The sql you want to have analyzed
 string std_server = "companyserver";   //The name of the server on which the sql is executed on
 string std_database = "datawarehouse"; //The name of the initial database on which the sql is executed on
-string causer = "testcase" //The entity that is executes the sql e.g. the name of a script
-var options = new CompilerOptions();
+string causer = "testcase";            //The entity that is executes the sql e.g. the name of a script
+var options = new CompilerOptions();   //Options for compilation
 
 //2. Compile
-var result = compiler.compile(your_sql, sql_server, std_database, causer, options);
+var result = new Compiler().compile(your_sql, sql_server, std_database, causer, options);
 ```
 
 The result contains 
