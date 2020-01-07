@@ -59,15 +59,21 @@ namespace DFEngine.Compilers.TSQL.Resolvers
             {
                 for (int index = 0; index < sources.Count; index++)
                 {
-                    if (!sources[index].Type.Equals(ExpressionType.COLUMN) && !sources[index].Type.Equals(ExpressionType.SCALAR_FUNCTION))
+                    Expression resolvedSource;
+
+                    if (sources[index].Type.Equals(ExpressionType.COMPLEX) || sources[index].Type.Equals(ExpressionType.CONSTANT))
                         continue;
+                    else if (sources[index].Type.Equals(ExpressionType.ALIAS))
+                        resolvedSource = sources[index].ChildExpressions[0];
+                    else
+                        resolvedSource = sources[index];
 
                     var singleManipulation = new Expression(ExpressionType.COLUMN)
                     {
                         Name = Beautifier.EnhanceNotation(targetObject, InternalConstants.UNRELATED_COLUMN_NAME)
                     };
 
-                    singleManipulation.ChildExpressions.Add(sources[index]);
+                    singleManipulation.ChildExpressions.Add(resolvedSource);
                     manipulation.Expressions.Add(singleManipulation);
                 }
             }
