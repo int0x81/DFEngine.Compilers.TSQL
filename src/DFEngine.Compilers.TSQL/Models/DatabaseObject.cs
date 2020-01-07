@@ -1,6 +1,6 @@
-﻿using DFEngine.Compilers.TSQL.Exceptions;
+﻿using DFEngine.Compilers.TSQL.Constants;
+using DFEngine.Compilers.TSQL.Exceptions;
 using DFEngine.Compilers.TSQL.Helpers;
-using System;
 using System.Collections.Generic;
 
 namespace DFEngine.Compilers.TSQL.Models

@@ -2,11 +2,8 @@
 using DFEngine.Compilers.TSQL.Exceptions;
 using DFEngine.Compilers.TSQL.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TSQL.Tokens;
-
-[assembly: InternalsVisibleTo("DFEngine.Compilers.TSQL.UnitTest")]
+using DFEngine.Compilers.TSQL.Constants;
 
 namespace DFEngine.Compilers.TSQL.Resolvers
 {

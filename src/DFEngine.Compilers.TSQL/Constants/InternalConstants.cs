@@ -1,4 +1,4 @@
-﻿namespace DFEngine.Compilers.TSQL.Helpers
+﻿namespace DFEngine.Compilers.TSQL.Constants
 {
     /// <summary>
     /// Contains self defined constants

@@ -1,4 +1,4 @@
-using DFEngine.Compilers.TSQL.Helpers;
+using DFEngine.Compilers.TSQL.Constants;
 using System.Collections.Generic;
 
 namespace DFEngine.Compilers.TSQL.Models

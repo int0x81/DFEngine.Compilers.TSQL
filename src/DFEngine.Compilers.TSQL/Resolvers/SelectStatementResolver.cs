@@ -4,6 +4,7 @@ using DFEngine.Compilers.TSQL.Helpers;
 using System;
 using System.Collections.Generic;
 using TSQL.Tokens;
+using DFEngine.Compilers.TSQL.Constants;
 
 namespace DFEngine.Compilers.TSQL.Resolvers
 {

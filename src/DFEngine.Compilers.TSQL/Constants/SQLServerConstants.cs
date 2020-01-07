@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DFEngine.Compilers.TSQL.Helpers
+namespace DFEngine.Compilers.TSQL.Constants
 {
     /// <summary>
     /// Contains constants as defined by Microsoft SQL server
@@ -13,6 +13,7 @@ namespace DFEngine.Compilers.TSQL.Helpers
         /// The default schema of the database.
         /// </summary>
         internal static string DEFAULT_SCHEMA { get => BUILD_IN_SCHEMAS[0]; }
+
         /// <summary>
         /// The build-in schemas every database has and can not be deleted
         /// </summary>

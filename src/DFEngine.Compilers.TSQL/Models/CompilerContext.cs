@@ -1,8 +1,7 @@
 ﻿using DFEngine.Compilers.TSQL.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using DFEngine.Compilers.TSQL.Models;
+using DFEngine.Compilers.TSQL.Constants;
 
 namespace DFEngine.Compilers.TSQL.Models
 {
@@ -36,7 +35,7 @@ namespace DFEngine.Compilers.TSQL.Models
         /// <summary>
         /// DO NOT PUSH DIRECTLY TO THIS STACK! Use the AddDatabaseObjectToCurrentContext method instead
         /// Contains all database objects that are in the current scope of the statement that is beeing resolved
-        /// After a select statement has been resolved, its objects are poped from the stack
+        /// After a statement has been resolved, its objects are popped from the stack
         /// </summary>
         internal Stack<DatabaseObject> CurrentDatabaseObjectContext { get; } = new Stack<DatabaseObject>();
 
@@ -50,23 +49,12 @@ namespace DFEngine.Compilers.TSQL.Models
         /// </summary>
         internal List<Expression> DataQueries { get; set; } = new List<Expression>();
 
-        /// <summary>
-        /// Contains all variables
-        /// </summary>
-        internal List<Variable> Variables { get; }
-
-        /// <summary>
-        /// Contains all table variables
-        /// </summary>
-        internal List<DatabaseObject> TableVariables { get; }
-
         internal CompilerContext(string causer, string serverName, string databaseName, bool considerQueries)
         {
             Causer = causer;
             CurrentServerContext = serverName;
             CurrentDbContext = databaseName;
             ConsiderQueries = considerQueries;
-            Variables = new List<Variable>();
         }
 
         /// <summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DFEngine.Compilers.TSQL.Models
+﻿namespace DFEngine.Compilers.TSQL.Constants
 {
     static class Operators
     {
