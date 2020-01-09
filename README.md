@@ -10,7 +10,7 @@ Originally written for the  free-to-use sql-visualization-tool [dfengine.io](htt
 string your_sql = "INSERT INTO dbo.Costumers (Name, Age, Rating) VALUES (appDB.dbo.Costumers.Name, appDB.[dbo].Costumers.Age, 4)";     //The sql you want to have analyzed
 string std_server = "companyserver";   //The name of the server on which the sql is executed on
 string std_database = "datawarehouse"; //The name of the initial database on which the sql is executed on
-string causer = "testcase";            //The entity that is executes the sql e.g. the name of a script
+string causer = "testcase";            //The entity that executes the sql e.g. the name of a script or a daemon
 var options = new CompilerOptions();   //Options for compilation
 
 //2. Compile
